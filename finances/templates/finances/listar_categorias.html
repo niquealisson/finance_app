@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Categorias</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'finances/css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Categorias</h1>
+        
+        <!-- Lista de categorias com links para editar e excluir -->
+        <ul>
+            {% for categoria in categorias %}
+                <li>
+                    {{ categoria.nome }}
+                    <!-- Links para editar e excluir categoria -->
+                    <a href="{% url 'editar_categoria' categoria.pk %}">Editar</a> | 
+                    <a href="{% url 'excluir_categoria' categoria.pk %}" onclick="return confirm('Tem certeza que deseja excluir esta categoria?');">Excluir</a>
+                </li>
+            {% empty %}
+                <li>Não há categorias cadastradas.</li>
+            {% endfor %}
+        </ul>
+        
+        <!-- Link para cadastrar uma nova categoria -->
+        <a href="{% url 'cadastrar_categoria' %}">Cadastrar Nova Categoria</a>
+    </div>
+</body>
+</html>

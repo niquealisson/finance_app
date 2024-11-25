@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Categoria</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'finances/css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Categoria</h1>
+        
+        <!-- Formulário para editar categoria -->
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Salvar Alterações</button>
+        </form>
+        
+        <!-- Link para voltar à listagem de categorias -->
+        <a href="{% url 'listar_categorias' %}">Voltar para a listagem de categorias</a>
+    </div>
+</body>
+</html>

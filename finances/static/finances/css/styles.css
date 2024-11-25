@@ -1,0 +1,180 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo para o body e container principal */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Container principal com largura adaptável */
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+/* Títulos */
+h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Estilos para os formulários */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+/* Estilo dos campos de input e selects */
+input, select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    background-color: #f9f9f9;
+}
+
+input:focus, select:focus {
+    border-color: #5d9cec;
+    outline: none;
+}
+
+/* Botão */
+button {
+    padding: 12px;
+    background-color: #5d9cec;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4a8fd3;
+}
+
+/* Estilo para as listas */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #fff;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+/* Estilo para links */
+a {
+    color: #5d9cec;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para as tabelas de transações */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+table th, table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 1rem;
+}
+
+table th {
+    background-color: #5d9cec;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilo para o total da transação */
+.total {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajustes para entradas e saídas */
+.entrada {
+    color: green;
+    font-weight: bold;
+}
+
+.saida {
+    color: red;
+    font-weight: bold;
+}
+
+/* Classes auxiliares para layout */
+.center-text {
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 1600px) {
+    .container {
+        width: 95%;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    table th, table td {
+        padding: 10px;
+    }
+
+    button {
+        padding: 10px;
+    }
+}

@@ -1,0 +1,51 @@
+<!-- listar_transacoes.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Transações</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'finances/css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Exibindo o total em destaque no topo -->
+        <div class="total">
+            <h2>Acumulado: R$ {{ total }}</h2>
+        </div>
+
+        <h1>Lista de Transações</h1>
+        <a href="{% url 'nova_transacao' %}">Adcionar Nova Trancação</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transacao in transacoes %}
+                    <tr>
+                        <td>{{ transacao.categoria.nome }}</td>
+                        <td>{{ transacao.descricao }}</td>
+                        <td>{{ transacao.tipo }}</td>
+                        <!-- Adicionando classes para cores no valor -->
+                        <td class="{% if transacao.tipo == 'entrada' %}entrada{% else %}saida{% endif %}">
+                            R$ {{ transacao.valor }}
+                        </td>
+                        <td>{{ transacao.data }}</td>
+                        <td>
+                            <a href="{% url 'editar_transacao' transacao.pk %}">Editar</a> |
+                            <a href="{% url 'excluir_transacao' transacao.pk %}">Excluir</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

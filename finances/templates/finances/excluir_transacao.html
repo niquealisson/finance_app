@@ -1,0 +1,20 @@
+<!-- finances/templates/finances/excluir_transacao.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Excluir Transação</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'finances/css/styles.css' %}">
+</head>
+<body>
+    <h1>Excluir Transação</h1>
+    <p>Tem certeza de que deseja excluir a transação "{{ transacao.descricao }}"?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Sim, excluir</button>
+        <a href="{% url 'listar_transacoes' %}">Cancelar</a>
+    </form>
+</body>
+</html>

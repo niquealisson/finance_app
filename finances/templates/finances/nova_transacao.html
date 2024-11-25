@@ -1,0 +1,21 @@
+<!-- finances/templates/finances/nova_transacao.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Transação</title>
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'finances/css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Nova Transação</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Salvar Transação</button>
+        </form>
+        <a href="{% url 'listar_transacoes' %}">Voltar para a listagem de transações</a>
+    </div>
+</body>
+</html>

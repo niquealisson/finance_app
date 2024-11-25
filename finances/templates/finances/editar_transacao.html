@@ -1,0 +1,21 @@
+<!-- finances/templates/finances/editar_transacao.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Transação</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'finances/css/styles.css' %}">
+</head>
+<body>
+    <h1>Editar Transação</h1>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Exibe o formulário com os campos de edição -->
+        <button type="submit">Salvar Alterações</button>
+    </form>
+    
+    <a href="{% url 'listar_transacoes' %}">Cancelar</a>
+</body>
+</html>
