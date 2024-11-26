@@ -10,8 +10,14 @@
 <body>
     <div class="container">
         <!-- Exibindo o total em destaque no topo -->
+        <div class="entrada">
+            <h2>Total de Entradas: R$ {{ total_entradas|floatformat:2 }}</h2>
+        </div>
+        <div class="saida">
+            <h2>Total de Saídas: R$ {{ total_saidas|floatformat:2 }}</h2>
+        </div>
         <div class="total">
-            <h2>Acumulado: R$ {{ total }}</h2>
+            <h2>Acumulado: R$ {{ total|floatformat:2 }}</h2>
         </div>
 
         <h1>Lista de Transações</h1>

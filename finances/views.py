@@ -9,12 +9,23 @@ from .forms import CategoriaForm
 
 @login_required
 def listar_transacoes(request):
+    # Obter todas as transações
     transacoes = Transacao.objects.all()
-    total = sum(
-        t.valor if t.tipo == 'entrada' else -t.valor for t in transacoes
-    )
+
+    # Calcular o total de entradas
+    total_entradas = sum(t.valor for t in transacoes if t.tipo == 'entrada')
+
+    # Calcular o total de saídas
+    total_saidas = sum(t.valor for t in transacoes if t.tipo == 'saida')
+
+    # Calcular o total geral (entradas - saídas)
+    total = total_entradas - total_saidas
+
+    # Passar os totais e as transações para o template
     return render(request, 'finances/listar_transacoes.html', {
         'transacoes': transacoes,
+        'total_entradas': total_entradas,
+        'total_saidas': total_saidas,
         'total': total,
     })
 @login_required
