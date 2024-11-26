@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from .models import Transacao, Categoria
 from .forms import TransacaoForm
 from .models import Categoria
 from .forms import CategoriaForm
 
+@login_required
 def listar_transacoes(request):
     transacoes = Transacao.objects.all()
     total = sum(
@@ -14,7 +17,7 @@ def listar_transacoes(request):
         'transacoes': transacoes,
         'total': total,
     })
-
+@login_required
 def nova_transacao(request):
     if request.method == 'POST':
         form = TransacaoForm(request.POST)
@@ -24,7 +27,7 @@ def nova_transacao(request):
     else:
         form = TransacaoForm()
     return render(request, 'finances/nova_transacao.html', {'form': form})
-
+@login_required
 def cadastrar_categoria(request):
     if request.method == 'POST':
         form = CategoriaForm(request.POST)
@@ -34,11 +37,11 @@ def cadastrar_categoria(request):
     else:
         form = CategoriaForm()
     return render(request, 'finances/cadastrar_categoria.html', {'form': form})
-
+@login_required
 def listar_categorias(request):
     categorias = Categoria.objects.all()
     return render(request, 'finances/listar_categorias.html', {'categorias': categorias})
-
+@login_required
 def excluir_transacao(request, pk):
     # Obtém a transação com base no ID (pk)
     transacao = get_object_or_404(Transacao, pk=pk)
@@ -49,7 +52,7 @@ def excluir_transacao(request, pk):
         return redirect('listar_transacoes')  # Redireciona para a listagem de transações
 
     return render(request, 'finances/excluir_transacao.html', {'transacao': transacao})
-
+@login_required
 def editar_transacao(request, pk):
     # Obtém a transação com base no ID (pk)
     transacao = get_object_or_404(Transacao, pk=pk)
@@ -64,7 +67,7 @@ def editar_transacao(request, pk):
         form = TransacaoForm(instance=transacao)  # Preenche o formulário com os dados da transação
 
     return render(request, 'finances/editar_transacao.html', {'form': form, 'transacao': transacao})
-
+@login_required
 def editar_categoria(request, pk):
     categoria = get_object_or_404(Categoria, pk=pk)
     
@@ -77,7 +80,7 @@ def editar_categoria(request, pk):
         form = CategoriaForm(instance=categoria)
     
     return render(request, 'finances/editar_categoria.html', {'form': form})
-
+@login_required
 def excluir_categoria(request, pk):
     categoria = get_object_or_404(Categoria, pk=pk)
     categoria.delete()
