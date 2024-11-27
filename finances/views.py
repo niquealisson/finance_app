@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Transacao, Categoria
 from .forms import TransacaoForm
 from .models import Categoria
+from django.core.paginator import Paginator
 from .forms import CategoriaForm
 @login_required
 def detalhes_mes(request, mes):
@@ -113,9 +114,14 @@ def listar_transacoes(request):
         .order_by('mes')
     )
 
-    # Passar os totais e as transações para o template
+    # Paginando as transações - 10 transações por página
+    paginator = Paginator(transacoes, 10)  # 10 transações por página
+    page_number = request.GET.get('page')  # Obtém o número da página da URL
+    page_obj = paginator.get_page(page_number)
+
+    # Passar os totais, as transações paginadas e os dados de agrupamento para o template
     return render(request, 'finances/listar_transacoes.html', {
-        'transacoes': transacoes,
+        'page_obj': page_obj,
         'total_entradas': total_entradas,
         'total_saidas': total_saidas,
         'total': total,

@@ -13,9 +13,9 @@
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Salvar Transação</button>
+            <button type="submit" class="btn btn-primary">Salvar Transação</button>
         </form>
-        <a href="{% url 'listar_transacoes' %}">Voltar para a listagem de transações</a>
+        <a class="right-link" href="{% url 'listar_transacoes' %}">Voltar para a listagem de transações</a>
     </div>
 </body>
 </html>

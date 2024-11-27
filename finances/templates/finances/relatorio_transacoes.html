@@ -44,28 +44,9 @@
             {% endfor %}
         </tbody>
     </table>
-    
-    <!-- Saídas por Mês -->
-    <h3>Saídas por Mês</h3>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Mês</th>
-                <th>Total de Saídas</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for saida in saidas_por_mes %}
-                <tr>
-                    <td><a class="saida-link" href="{% url 'detalhes_mes' saida.mes|date:'Y-m' %}">{{ saida.mes|date:"m/Y" }}</a></td>
-                    <td>R$ {{ saida.total|floatformat:2 }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 
     <!-- Link para voltar para a lista de transações -->
-    <a class="left-link" href="{% url 'listar_transacoes' %}">Voltar para a lista de transações</a>
+    <a class="right-link" href="{% url 'listar_transacoes' %}">Voltar para a lista de transações</a>
     </div>
 </body>
 </html>

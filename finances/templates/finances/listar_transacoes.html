@@ -1,4 +1,3 @@
-<!-- listar_transacoes.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,16 +9,16 @@
 <body>
     <div class="container">
         <div class="secao-total">
-        <div class="entrada">
-            <h2>Total de Entradas: R$ {{ total_entradas|floatformat:2 }}</h2>
-        </div>
-        <div class="saida">
-            <h2>Total de Saídas: R$ {{ total_saidas|floatformat:2 }}</h2>
-        </div>
-        <br>
-        <div class="total">
-            <h2>Acumulado: R$ {{ total|floatformat:2 }}</h2>
-        </div>
+            <div class="entrada">
+                <h2>Total de Entradas: R$ {{ total_entradas|floatformat:2 }}</h2>
+            </div>
+            <div class="saida">
+                <h2>Total de Saídas: R$ {{ total_saidas|floatformat:2 }}</h2>
+            </div>
+            <br>
+            <div class="total">
+                <h2>Acumulado: R$ {{ total|floatformat:2 }}</h2>
+            </div>
         </div>
         <div class="right">
             <a class="left-link" href="{% url 'nova_transacao' %}">Adicionar Nova Transação</a>
@@ -38,12 +37,11 @@
                 </tr>
             </thead>
             <tbody>
-                {% for transacao in transacoes %}
+                {% for transacao in page_obj %}
                     <tr>
                         <td>{{ transacao.categoria.nome }}</td>
                         <td>{{ transacao.descricao }}</td>
                         <td>{{ transacao.tipo }}</td>
-                        <!-- Adicionando classes para cores no valor -->
                         <td class="{% if transacao.tipo == 'entrada' %}entrada{% else %}saida{% endif %}">
                             R$ {{ transacao.valor }}
                         </td>
@@ -56,7 +54,24 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        <!-- Controles de Paginação -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a class="right-link" href="?page=1">&laquo; primeira</a>
+                    <a class="right-link" href="?page={{ page_obj.previous_page_number }}">anterior</a>
+                {% endif %}
+
+                <span class="current">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a class="right-link" href="?page={{ page_obj.next_page_number }}">próxima</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
-</div>
 </body>
 </html>

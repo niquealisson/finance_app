@@ -39,10 +39,9 @@ body {
 }
 
 /* Títulos */
-h1, h2, h3, p {
+h1, h2, h3 {
     color: #333;
     margin-bottom: 20px;
-    text-align: center;
     font-weight: 600;
 }
 
@@ -151,6 +150,130 @@ a {
     transition: background-color 0.3s ease;
     text-align: center;
     font-size: 1.1rem;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Formulário */
+.form-transacao {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Estilo para os campos do formulário (inputs) */
+/* Estilo para os campos de entrada (input, select, textarea) */
+input, select, textarea {
+    width: 100%; /* Garantir que os campos ocupem toda a largura disponível */
+    padding: 12px; /* Mais espaçamento dentro dos campos */
+    border: 1px solid #ddd; /* Borda suave */
+    border-radius: 8px; /* Bordas arredondadas */
+    font-size: 1rem; /* Tamanho de fonte adequado */
+    background-color: #f9f9f9; /* Cor de fundo mais suave */
+    color: #333; /* Cor do texto mais contrastante */
+    box-sizing: border-box; /* Garantir que o padding e a borda não aumentem o tamanho total do campo */
+    margin-bottom: 15px; /* Espaço abaixo dos campos */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Efeito de transição */
+}
+
+/* Foco nos campos */
+input:focus, select:focus, textarea:focus {
+    border-color: #5d9cec; /* Cor da borda quando o campo está em foco */
+    outline: none; /* Remover o contorno padrão */
+    box-shadow: 0 0 8px rgba(93, 156, 236, 0.5); /* Adicionar uma leve sombra para indicar foco */
+}
+
+/* Estilo para texto em áreas de texto (textarea) */
+textarea {
+    min-height: 120px; /* Definir uma altura mínima para a textarea */
+    resize: vertical; /* Permitir redimensionamento apenas na vertical */
+}
+
+/* Estilo para select (dropdown) */
+select {
+    cursor: pointer; /* Mudar o cursor para indicar um menu suspenso */
+}
+
+/* Estilo para labels (se você estiver usando labels para os campos) */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Espaçamento adicional em campos de formulário */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espaçamento entre os campos */
+}
+
+
+/* Botão de submissão */
+/* Estilos para o botão */
+button[type="submit"] {
+    background-color: #1b8f17; /* Cor de fundo azul */
+    color: white; /* Texto branco */
+    padding: 12px 25px; /* Espaçamento interno */
+    border: none; /* Remover borda */
+    border-radius: 8px; /* Bordas arredondadas */
+    font-size: 1.1rem; /* Tamanho da fonte */
+    cursor: pointer; /* Mudar o cursor para indicar interatividade */
+    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+    display: block; /* Tornar o botão um bloco */
+    width: 50%; /* Definir a largura para 50% da largura do contêiner */
+    margin: 20px auto; /* Centralizar horizontalmente com margens automáticas */
+    text-align: center; /* Centralizar o texto dentro do botão */
+}
+
+/* Efeito de hover no botão */
+button[type="submit"]:hover {
+    background-color: #25cc0f; /* Cor de fundo mais escura quando passar o mouse */
+}
+
+/* Estilos para o link */
+a.btn {
+    display: inline-block; /* Tornar o link um botão */
+    background-color: #f0ad4e; /* Cor de fundo laranja */
+    color: white; /* Texto branco */
+    padding: 12px 25px; /* Espaçamento interno */
+    border: none; /* Remover borda */
+    border-radius: 8px; /* Bordas arredondadas */
+    font-size: 1.1rem; /* Tamanho da fonte */
+    text-decoration: none; /* Remover sublinhado */
+    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+    text-align: center;
+    width: 50%; /* Definir a largura para 50% da largura do contêiner */
+    margin: 10px auto; /* Centralizar horizontalmente com margens automáticas */
+}
+
+/* Efeito de hover no link */
+a.btn:hover {
+    background-color: #ec971f; /* Cor de fundo mais escura para o link */
+}
+
+/* Link de voltar */
+.link-voltar {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.link-voltar:hover {
+    text-decoration: underline;
 }
 
 /* Link da esquerda (Adicionar Nova Transação) */
