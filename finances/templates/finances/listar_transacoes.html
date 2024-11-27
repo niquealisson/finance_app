@@ -9,19 +9,23 @@
 </head>
 <body>
     <div class="container">
-        <!-- Exibindo o total em destaque no topo -->
+        <div class="secao-total">
         <div class="entrada">
             <h2>Total de Entradas: R$ {{ total_entradas|floatformat:2 }}</h2>
         </div>
         <div class="saida">
             <h2>Total de Saídas: R$ {{ total_saidas|floatformat:2 }}</h2>
         </div>
+        <br>
         <div class="total">
             <h2>Acumulado: R$ {{ total|floatformat:2 }}</h2>
         </div>
-
+        </div>
+        <div class="right">
+            <a class="left-link" href="{% url 'nova_transacao' %}">Adicionar Nova Transação</a>
+            <a class="right-link" href="{% url 'relatorio_transacoes' %}">Ver Relatório de Transações</a>
+        </div>
         <h1>Lista de Transações</h1>
-        <a href="{% url 'nova_transacao' %}">Adcionar Nova Trancação</a>
         <table>
             <thead>
                 <tr>
@@ -45,13 +49,14 @@
                         </td>
                         <td>{{ transacao.data }}</td>
                         <td>
-                            <a href="{% url 'editar_transacao' transacao.pk %}">Editar</a> |
-                            <a href="{% url 'excluir_transacao' transacao.pk %}">Excluir</a>
+                            <a class="edit-link" href="{% url 'editar_transacao' transacao.pk %}">Editar</a> |
+                            <a class="del-link" href="{% url 'excluir_transacao' transacao.pk %}">Excluir</a>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+</div>
 </body>
 </html>

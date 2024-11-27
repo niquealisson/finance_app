@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes de Transações - {{ mes|date:"m/Y" }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'finances/css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes de Transações - {{ mes|date:"m/Y" }}</h1>
+
+        <!-- Seção de Entradas -->
+        <section class="transacoes">
+            <h3>Entradas</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Categoria</th>
+                        <th>Valor</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entrada in entradas_mes %}
+                        <tr>
+                            <td>{{ entrada.data|date:"d/m/Y" }}</td>
+                            <td>{{ entrada.categoria }}</td>
+                            <td>R$ {{ entrada.valor|floatformat:2 }}</td>
+                            <td>{{ entrada.descricao }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">Nenhuma entrada registrada para este mês.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h4>Total de Entradas: R$ {{ total_entradas|floatformat:2 }}</h4>
+        </section>
+
+        <!-- Seção de Saídas -->
+        <section class="transacoes">
+            <h3>Saídas</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Categoria</th>
+                        <th>Valor</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for saida in saidas_mes %}
+                        <tr>
+                            <td>{{ saida.data|date:"d/m/Y" }}</td>
+                            <td>{{ saida.categoria }}</td>
+                            <td>R$ {{ saida.valor|floatformat:2 }}</td>
+                            <td>{{ saida.descricao }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">Nenhuma saída registrada para este mês.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h4>Total de Saídas: R$ {{ total_saidas|floatformat:2 }}</h4>
+        </section>
+
+        <br>
+        <a class="left-link" href="{% url 'relatorio_transacoes' %}">Voltar para o Relatório</a>
+    </div>
+</body>
+</html>

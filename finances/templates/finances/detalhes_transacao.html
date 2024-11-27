@@ -1,0 +1,59 @@
+<!-- detalhes_transacao.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Transação</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'finances/css/styles.css' %}">
+</head>
+<body>
+    <h1>Detalhes da Transação</h1>
+
+    <!-- Exibindo os detalhes da transação -->
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <td>{{ transacao.id }}</td>
+        </tr>
+        <tr>
+            <th>Categoria</th>
+            <td>{{ transacao.categoria }}</td>
+        </tr>
+        <tr>
+            <th>Valor</th>
+            <td>R$ {{ transacao.valor|floatformat:2 }}</td>
+        </tr>
+        <tr>
+            <th>Data</th>
+            <td>{{ transacao.data|date:"d/m/Y" }}</td>
+        </tr>
+        <tr>
+            <th>Tipo</th>
+            <td>{{ transacao.tipo }}</td>
+        </tr>
+        <tr>
+            <th>Descrição</th>
+            <td>{{ transacao.descricao }}</td>
+        </tr>
+
+        <!-- Exemplo para mostrar entradas e saídas -->
+        {% if transacao.tipo == 'entrada' %}
+            <tr>
+                <th>Entrada</th>
+                <td>R$ {{ transacao.valor|floatformat:2 }}</td>
+            </tr>
+        {% elif transacao.tipo == 'saida' %}
+            <tr>
+                <th>Saída</th>
+                <td>R$ {{ transacao.valor|floatformat:2 }}</td>
+            </tr>
+        {% endif %}
+    </table>
+
+    <br>
+    <!-- Link para voltar para a lista de transações -->
+    <a class="left-link" href="{% url 'listar_transacoes' %}">Voltar para a lista de transações</a>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!-- relatorio_transacoes.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Transações</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'finances/css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+    <h1>Relatório de Transações</h1>
+    
+    <!-- Resumo dos Totais -->
+    <div class="secao-total">
+        <div class="entrada">
+            <h2>Total de Entradas: R$ {{ total_entradas|floatformat:2 }}</h2>
+        </div>
+        <div class="saida">
+            <h2>Total de Saídas: R$ {{ total_saidas|floatformat:2 }}</h2>
+        </div>
+        <br>
+        <div class="total">
+            <h2>Acumulado: R$ {{ total|floatformat:2 }}</h2>
+        </div>
+    </div>
+    
+    <!-- Entradas por Mês -->
+    <h3>Entradas por Mês</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Mês</th>
+                <th>Total de Entradas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entrada in entradas_por_mes %}
+                <tr>
+                    <td><a class="left-link" href="{% url 'detalhes_mes' entrada.mes|date:'Y-m' %}">{{ entrada.mes|date:"d/m/Y" }}</a></td>
+                    <td>R$ {{ entrada.total|floatformat:2 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <!-- Saídas por Mês -->
+    <h3>Saídas por Mês</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Mês</th>
+                <th>Total de Saídas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for saida in saidas_por_mes %}
+                <tr>
+                    <td><a class="saida-link" href="{% url 'detalhes_mes' saida.mes|date:'Y-m' %}">{{ saida.mes|date:"m/Y" }}</a></td>
+                    <td>R$ {{ saida.total|floatformat:2 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Link para voltar para a lista de transações -->
+    <a class="left-link" href="{% url 'listar_transacoes' %}">Voltar para a lista de transações</a>
+    </div>
+</body>
+</html>
