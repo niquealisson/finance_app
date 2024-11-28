@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Financeiro</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'finances/css/styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Dashboard Financeiro</h1>
+
+        <!-- Resumo de Saídas por Categoria -->
+        <h2>Resumo de Saídas por Categoria</h2>
+        {% if gastos_por_categoria %}
+        <div class="categorias">
+            {% for categoria, valor in gastos_por_categoria.items %}
+            <div class="card categoria">
+                <h3>{{ categoria }}</h3>
+                <p>Total Gasto: R$ {{ valor|floatformat:2 }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>Nenhum gasto registrado.</p>
+        {% endif %}
+
+        <!-- Gráfico de Distribuição de Gastos por Categoria -->
+        <h3>Distribuição de Gastos por Categoria</h3>
+        <div id="container-grafico">
+            <canvas id="gastosChart"></canvas>
+        </div>
+
+        <script>
+            var chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        {% for categoria, valor in gastos_por_categoria.items %}
+                            "{{ categoria }}"{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+                    ],
+            datasets: [{
+                data: [
+                    {% for categoria, valor in gastos_por_categoria.items %}
+                                {{ valor }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+                        ],
+            backgroundColor: [ '#ff9999', '#66b3ff', '#99ff99', '#ffcc99', '#c2c2f0',
+                                '#ffb3e6', '#ffb366', '#b3b3cc', '#c2f0c2', '#ff6666',
+                                '#66ff99', '#ff9966', '#66b3cc', '#ffb3b3', '#99b3ff'],  // Adicione mais cores se necessário
+                    }]
+                },
+            options: {
+                responsive: true,  // Faz com que o gráfico seja redimensionado automaticamente
+                    plugins: {
+                    legend: {
+                        position: 'top',
+                        },
+                },
+                maintainAspectRatio: false,  // Permite controle manual sobre o tamanho
+                    aspectRatio: 1,  // Proporção 1:1 (quadrado)
+                }
+            }); var ctx = document.getElementById('gastosChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        {% for categoria, valor in gastos_por_categoria.items %}
+                            "{{ categoria }}"{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+                    ],
+            datasets: [{
+                data: [
+                    {% for categoria, valor in gastos_por_categoria.items %}
+                                {{ valor }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+                        ],
+            backgroundColor: [ '#ff9999', '#66b3ff', '#99ff99', '#ffcc99', '#c2c2f0',
+                                '#ffb3e6', '#ffb366', '#b3b3cc', '#c2f0c2', '#ff6666',
+                                '#66ff99', '#ff9966', '#66b3cc', '#ffb3b3', '#99b3ff'],  // Adicione mais cores se necessário
+                    }]
+                },
+            options: {
+                responsive: true,  // Faz o gráfico se ajustar de acordo com o tamanho da tela
+                    plugins: {
+                    legend: {
+                        position: 'top',
+                        },
+                },
+                maintainAspectRatio: true,  // Mantém a proporção do gráfico
+                }
+            });
+        </script>
+
+        <!-- Indicadores Financeiros -->
+        <h2>Indicadores Financeiros</h2>
+        <div class="indicadores">
+            <div class="card indicador">
+                <h3>Percentual de Economia</h3>
+                <p>{{ percentual_economia|floatformat:2 }}%</p>
+            </div>
+            <div class="card indicador">
+                <h3>Saldo Esperado</h3>
+                <p>R$ {{ saldo_esperado|floatformat:2 }}</p>
+            </div>
+            <div class="card indicador">
+                <h3>Saídas Mensais Médias</h3>
+                <p>R$ {{ media_saidas_mensais|floatformat:2 }}</p>
+            </div>
+        </div>
+
+
+        <!-- Últimas Transações -->
+        <h2>Últimas Transações</h2>
+        {% if ultimas_transacoes %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transacao in ultimas_transacoes %}
+                <tr>
+                    <td>{{ transacao.data|date:"d/m/Y" }}</td>
+                    <td>{{ transacao.categoria.nome }}</td>
+                    <td>{{ transacao.descricao }}</td>
+                    <td>R$ {{ transacao.valor|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Nenhuma transação recente registrada.</p>
+        {% endif %}
+
+        <!-- Botão de Exportação -->
+
+        <a class="left-link" href="{% url 'listar_transacoes' %}">Voltar para a listagem de transações</a>
+    </div>
+</body>
+
+</html>

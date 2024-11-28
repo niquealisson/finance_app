@@ -13,6 +13,66 @@ body {
     line-height: 1.6;
     padding: 20px;
 }
+/* Seções de Cards */
+.card {
+    background-color: #fff;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.categorias {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card.categoria {
+    background-color: #e3f2fd;
+}
+
+.card.indicador {
+    background-color: #e8f5e9;
+}
+#container-grafico {
+    width: 100%;
+    max-width: 500px;  /* Tamanho máximo para o gráfico */
+    margin: 0 auto;    /* Centraliza o gráfico */
+    padding: 20px;
+}
+
+#canvas-container {
+    width: 100%;
+    height: 300px;  /* Define uma altura fixa */
+}
+
+/* Indicadores financeiros */
+.indicadores {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card.indicador {
+    width: 30%;
+    text-align: center;
+}
+
+.card h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2e7d32;
+}
+
 
 /* Container principal */
 .right {

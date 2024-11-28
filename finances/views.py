@@ -3,12 +3,69 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models.functions import TruncMonth
 from django.db.models import Sum
 from django.shortcuts import render
+from collections import defaultdict
 from django.contrib.auth.decorators import login_required
 from .models import Transacao, Categoria
+from django.db.models.functions import TruncMonth
 from .forms import TransacaoForm
 from .models import Categoria
 from django.core.paginator import Paginator
 from .forms import CategoriaForm
+from decimal import Decimal
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
+def dashboard(request):
+    # Recuperar todas as transações do banco de dados
+    transacoes = Transacao.objects.all()
+
+    # Calcular entradas e saídas
+    total_entradas = sum(transacao.valor for transacao in transacoes if transacao.tipo == 'entrada')
+    total_saidas = sum(transacao.valor for transacao in transacoes if transacao.tipo == 'saida')
+
+    # Agrupar saídas por categoria
+    gastos_por_categoria = defaultdict(Decimal)
+    for transacao in transacoes.filter(tipo='saida'):
+        gastos_por_categoria[transacao.categoria.nome] += transacao.valor
+
+    # Calcular saldo e indicadores financeiros
+    saldo = total_entradas - total_saidas
+    percentual_economia = (saldo / total_entradas * 100) if total_entradas > 0 else 0
+    data_primeira_transacao = datetime(2024, 10, 1)  # Exemplo de data de início
+
+# Data atual
+    data_atual = datetime.now()
+
+# Calcular a diferença em meses
+    diferenca = relativedelta(data_atual, data_primeira_transacao)
+    num_mes = diferenca.years * 12 + diferenca.months
+
+# Se não houver transações, evita a divisão por zero
+    num_mes = num_mes if num_mes > 0 else 1
+
+# Calcular a média de saídas mensais
+    media_saidas_mensais = total_saidas / num_mes
+    saldo_esperado = saldo * Decimal('1.02')  # Exemplo de 10% de aumento no saldo
+
+    # Recuperar as últimas transações (últimos 5 registros, por exemplo)
+    ultimas_transacoes = transacoes.order_by('-data')[:5]
+
+    # Converter defaultdict para um dicionário normal
+    gastos_por_categoria = dict(gastos_por_categoria)
+
+    # Enviar os dados para o template
+    context = {
+        'total_entradas': total_entradas,
+        'total_saidas': total_saidas,
+        'saldo': saldo,
+        'percentual_economia': percentual_economia,
+        'media_saidas_mensais': media_saidas_mensais,
+        'saldo_esperado': saldo_esperado,
+        'gastos_por_categoria': gastos_por_categoria,
+        'ultimas_transacoes': ultimas_transacoes,
+    }
+
+    return render(request, 'finances/dashboard.html', context)
 @login_required
 def detalhes_mes(request, mes):
     ano, mes_num = mes.split('-')
@@ -115,7 +172,7 @@ def listar_transacoes(request):
     )
 
     # Paginando as transações - 10 transações por página
-    paginator = Paginator(transacoes, 10)  # 10 transações por página
+    paginator = Paginator(transacoes, 5)  # 10 transações por página
     page_number = request.GET.get('page')  # Obtém o número da página da URL
     page_obj = paginator.get_page(page_number)
 
